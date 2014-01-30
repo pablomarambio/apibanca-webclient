@@ -38,7 +38,7 @@
                 - if user_signed_in?                  
                   #{current_user.name}
                 - else
-                  Ingresar
+                  Login
                 %b.caret
               %ul.dropdown-menu
                 - if user_signed_in?
@@ -48,12 +48,12 @@
                   %li
                     =link_to "Salir", destroy_user_session_path, method: :delete
                 - else
-                  %li
-                    =link_to "... con Twitter", user_omniauth_authorize_path(:twitter)
-                  %li
-                    =link_to "... con LinkedIn", user_omniauth_authorize_path(:linkedin)
-                  %li
-                    =link_to "... con Google", user_omniauth_authorize_path(:google)
+                  %li.login-link
+                    =link_to "Ingresar con Twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter"
+                  %li.login-link
+                    =link_to "Ingresar con LinkedIn", user_omniauth_authorize_path(:linkedin), class: "zocial linkedin"
+                  %li.login-link
+                    =link_to "Ingresar con Google", user_omniauth_authorize_path(:google), class: "zocial google"
 
     #maincont.container
       - if flash.any?

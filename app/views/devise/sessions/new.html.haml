@@ -1,0 +1,7 @@
+
+.row
+	.col-md-4.col-md-offset-4
+		.login-box
+			=link_to "Ingresar con Twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter"
+			=link_to "Ingresar con LinkedIn", user_omniauth_authorize_path(:linkedin), class: "zocial linkedin"
+			=link_to "Ingresar con Google", user_omniauth_authorize_path(:google), class: "zocial google"

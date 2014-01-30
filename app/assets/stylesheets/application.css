@@ -11,3 +11,7 @@
  *= require_self
  *= require_tree .
  */
+
+.pretty-box.setup-api-access:after {
+	content: "Acceso a la API";
+}

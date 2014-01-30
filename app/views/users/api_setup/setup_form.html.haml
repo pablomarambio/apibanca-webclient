@@ -1,0 +1,52 @@
+.row
+	.col-md-12
+		= render "shared/flash", klass: "info", text: "Para continuar, debes ingresar la llave de acceso a la API que obtuviste al crear tu cuenta en API-Banca."
+.row
+	.col-md-6
+		%div.pretty-box.setup-api-access
+			= form_tag users_setup_api_access_path, id: "edit-company", role: "form", class: "form-horizontal" do
+				.form-group
+					%label.col-sm-2.control-label{for: :name} Llave de acceso
+					.col-sm-10
+						= text_field_tag :api_key, params[:api_key], placeholder: "Llave de acceso", class: "form-control"
+						%span.help-block 
+							La llave tiene una forma parecida a ésta:
+							%em "bf10f65c-de86-2eca-bdb6-9a9945dd0b08".
+							Ingrésala sin comillas. 
+						
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						%button.btn.btn-info{type: "submit"}
+							Conectar con la API
+							%span.glyphicon.glyphicon-chevron-right
+	.col-md-6
+		.callout.callout-info
+			%h4 Cómo obtener la llave de acceso a la API
+			%p 
+				
+				Para obtener la llave de acceso, entra a 
+				%a{href:"http://apibanca.herokuapp.com"} API-Banca
+				y selecciona la opción 
+				%code API-Keys
+				del menú. La llave tiene una forma parecida a ésta:
+				%em "bf10f65c-de86-2eca-bdb6-9a9945dd0b08".
+				%strong Ingrésala sin comillas.
+
+
+- content_for :script do
+	:plain
+		// RUT Empresa
+		var error = false;
+		$("#company_rutb").rut({ formatOn: 'keyup' }).on('rutInvalido', function(){
+			$("#rut-group").removeClass("has-success").addClass("has-error");
+			$("input#rut").val("");
+			error = true;
+		}).on('rutValido', function(e, rut, dv){
+			$("#rut-group").removeClass("has-error").addClass("has-success");
+			$("input#rut").val(rut);
+			error = false;
+		});
+
+		$("form#edit-company").submit(function(e) {
+			if(error) { e.preventDefault(); }
+		});

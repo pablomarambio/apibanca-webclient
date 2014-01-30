@@ -6,6 +6,10 @@ ApibancaWebclient::Application.routes.draw do
 		get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
 		get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
 	end
+	namespace :users do
+		get 'setup_form', to: "api_setup#setup_form"
+		post 'setup_api_access', to: "api_setup#setup_api_access", as: "setup_api_access"
+	end
 	resources :banks
 	resources :deposits
 	root to: "application#root"
