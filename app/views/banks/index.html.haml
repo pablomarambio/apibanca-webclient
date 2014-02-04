@@ -1,0 +1,42 @@
+.row
+	.col-md-12
+		.callout.callout-info
+			%h4 Bancos
+			%p 
+				Debes crear un banco por cada combinación
+				%code BANCO / USUARIO / CUENTA
+
+.row
+	.col-md-12
+		%table.table.table.table-striped
+			%tr
+				%th ID
+				%th Estado
+				%th Creación
+				%th Banco
+				%th Usuario
+				%th Cuenta
+				%th Acciones
+			- @banks.each do |b|
+				%tr
+					%td
+						= link_to b.id, banks_path(id: b.id)
+					%td
+						- case b.status
+							- when "idle", "working"
+								%span.glyphicon.glyphicon-refresh{ title: b.status }
+							- when "error"
+								%span.glyphicon.glyphicon-remove{ title: b.status }
+							- when "success"
+								%span.glyphicon.glyphicon-ok{ title: b.status }
+						= b.status
+					%td= b.keys.join(", ")
+					%td= b.name
+					%td= b.user
+					%td= b.account
+					%td= link_to "Eliminar", banks_path(b), method: :delete, class: "btn btn-danger btn-xs"
+
+
+- content_for :script do
+	:plain
+		//hola

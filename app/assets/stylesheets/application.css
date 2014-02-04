@@ -15,3 +15,7 @@
 .pretty-box.setup-api-access:after {
 	content: "Acceso a la API";
 }
+
+.pretty-box.login:after {
+	content: "Login";
+}

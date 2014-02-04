@@ -3,16 +3,23 @@
 		= render "shared/flash", klass: "info", text: "Para continuar, debes ingresar la llave de acceso a la API que obtuviste al crear tu cuenta en API-Banca."
 .row
 	.col-md-6
+		= render "shared/errors"
 		%div.pretty-box.setup-api-access
 			= form_tag users_setup_api_access_path, id: "edit-company", role: "form", class: "form-horizontal" do
-				.form-group
-					%label.col-sm-2.control-label{for: :name} Llave de acceso
+				.form-group{class: @errors[:api_key] ? "has-error" : ""}
+					%label.col-sm-2.control-label{for: :api_key} Llave de acceso
 					.col-sm-10
 						= text_field_tag :api_key, params[:api_key], placeholder: "Llave de acceso", class: "form-control"
 						%span.help-block 
 							La llave tiene una forma parecida a ésta:
 							%em "bf10f65c-de86-2eca-bdb6-9a9945dd0b08".
 							Ingrésala sin comillas. 
+				%div.form-group{class: @errors[:uri] ? "has-error" : ""}
+					%label.col-sm-2.control-label{for: :uri} URL de API
+					.col-sm-10
+						= text_field_tag :uri, params[:uri], placeholder: "URL de acceso a la API", class: "form-control error"
+						%span.help-block 
+							No deberías tocar este dato a menos que sepas lo que estás haciendo.
 						
 				.form-group
 					.col-sm-offset-2.col-sm-10

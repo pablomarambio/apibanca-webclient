@@ -38,7 +38,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 				sign_in user
 			end
 		end
-		redirect_to root_path
+		if current_user.api_key.nil?
+			redirect_to users_setup_form_path
+		else
+			redirect_to root_path
+		end
 	end
 
 	def auth_provider_hash omniauth

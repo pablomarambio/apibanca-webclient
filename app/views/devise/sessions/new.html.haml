@@ -1,7 +1,15 @@
 
 .row
-	.col-md-4.col-md-offset-4
-		.login-box
-			=link_to "Ingresar con Twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter"
-			=link_to "Ingresar con LinkedIn", user_omniauth_authorize_path(:linkedin), class: "zocial linkedin"
-			=link_to "Ingresar con Google", user_omniauth_authorize_path(:google), class: "zocial google"
+	.col-md-6.col-md-offset-3
+		.pretty-box.login
+			.login-box
+				=link_to "Ingresar con Twitter", user_omniauth_authorize_path(:twitter), class: "zocial twitter"
+				=link_to "Ingresar con LinkedIn", user_omniauth_authorize_path(:linkedin), class: "zocial linkedin"
+				=link_to "Ingresar con Google", user_omniauth_authorize_path(:google), class: "zocial google"
+
+		.callout.callout-info
+			%h4 Información importante
+			%p
+				%strong No tendremos acceso a tus claves. 
+				API-Banca tampoco tendrá acceso a tu información personal. 
+				%em Implementamos autentificación con Twitter, Facebook y otros para que no tengas que recordar una clave más. 

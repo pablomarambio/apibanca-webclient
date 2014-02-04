@@ -29,9 +29,9 @@
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           %ul.nav.navbar-nav
             %li{ class: (controller_name == "deposits" ? "active" : "") }
-              %a{href: deposits_path} Depósitos
+              %a{href: banks_path} Depósitos
             %li{ class: (controller_name == "banks" ? "active" : "") }
-              %a{href: deposits_path} Bancos
+              %a{href: banks_path} Bancos
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}

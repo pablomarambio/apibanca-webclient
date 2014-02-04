@@ -10,7 +10,9 @@ ApibancaWebclient::Application.routes.draw do
 		get 'setup_form', to: "api_setup#setup_form"
 		post 'setup_api_access', to: "api_setup#setup_api_access", as: "setup_api_access"
 	end
-	resources :banks
-	resources :deposits
+	resources :banks do
+		resources :deposits
+	end
+	
 	root to: "application#root"
 end

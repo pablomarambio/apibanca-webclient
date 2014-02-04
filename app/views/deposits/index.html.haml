@@ -1,0 +1,91 @@
+.row
+	.col-md-12
+		.callout.callout-info
+			%h4 Cartola instantánea
+			
+.row
+	.col-md-12
+		%form.form-inline{action: deposits_path(@bank.id), method: :get, role: :form}
+			%a.btn.btn-secondary{href: get_bank_path(id: @bank.id) }
+				%span.glyphicon.glyphicon-chevron-left
+				Volver a banco
+			#rut-group.form-group
+				%label.sr-only{for: :rut} RUT Origen
+				= text_field_tag :rut, params[:rut], placeholder: "RUT Origen", class: "form-control"
+				= hidden_field_tag :psd_origin_user_rut, params[:psd_origin_user_rut]
+			.form-group
+				%label.sr-only{for: :psd_type} Tipo
+				= select_tag :psd_type, options_for_select(@deposit_types, params[:psd_type]), class: "form-control"
+			.form-group
+				%label.sr-only{for: :psd_type} Banco
+				= select_tag :psd_origin_bank, options_for_select(@bank_names, params[:psd_origin_bank]), class: "form-control"
+			%button.btn.btn-info{type: "submit"}
+				%span.glyphicon.glyphicon-search
+				Buscar
+		%p &nbsp;
+		%table.table.table.table-striped
+			%tr
+				%th ID
+				%th
+					%abbr{ title: "Fecha en que fue encontrado por el robot" }
+						Día
+						%span.glyphicon.glyphicon-cog
+				%th
+					%abbr{ title: "Hora en que fue encontrado por el robot" }
+						Hora
+						%span.glyphicon.glyphicon-cog
+				%th
+					%abbr{ title: "Orden de trabajo que lo encontró" }
+						ID
+						%span.glyphicon.glyphicon-cog
+				%th
+					%abbr{ title: "Cartola: fecha depósito" } Fecha
+				%th
+					%abbr{ title: "Contiene historia" }
+						%span.glyphicon.glyphicon-header
+				%th
+					%abbr{ title: "Cartola: monto depósito" } Monto
+				%th
+					%abbr{ title: "Cartola: glosa depósito" } Glosa
+				%th
+					%abbr{ title: "Cartola: RUT emisor (sólo transferencias)" } RUT emisor
+				%th
+					%abbr{ title: "Cartola: Usuario emisor (sólo transferencias)" } Nombre emisor
+				%th
+					%abbr{ title: "Cartola: Cuenta emisor (sólo transferencias)" } Cuenta emisor
+				%th
+					%abbr{ title: "Cartola: Banco emisor (sólo transferencias)" } Banco emisor
+			- @deposits.each do |d|
+				- job = @jobs.select { |j| j.id == d.job_id }.first
+				%tr
+					%td= link_to d.id, get_deposit_path(bank_id: d.bank_id, id: d.id)
+					%td= job.updated_at.advance(hours: -3).strftime "%m-%d"
+					%td= job.updated_at.advance(hours: -3).strftime "%H:%M"
+					%td= link_to d.job.id, job_path(d.job)
+					%td= d.psd_date.strftime "%m-%d"
+					%td
+						- if d.has_history
+							%span.glyphicon.glyphicon-ok
+						- else
+							&nbsp;
+					%td= number_to_currency d.psd_amount, precision: 0, :delimiter => "."
+					%td
+						%abbr{ title: d.psd_comment }
+							= d.raw_comment[0..10]
+					%td= Rutcl::Rut.format_rut_without_dv d.psd_origin_user_rut unless d.psd_origin_user_rut.nil?
+					%td= d.raw_origin_user_name
+					%td= d.psd_origin_account
+					%td= d.psd_origin_bank
+
+		= will_paginate @deposits
+
+- content_for :script do
+	:plain
+		// RUT Origen
+		$("#rut").rut({ formatOn: 'keyup' }).on('rutInvalido', function(){
+			$("#rut-group").removeClass("has-success").addClass("has-error");
+			$("#psd_origin_user_rut").val("");
+		}).on('rutValido', function(e, rut, dv){
+			$("#rut-group").removeClass("has-error").addClass("has-success");
+			$("#psd_origin_user_rut").val(rut);
+		});

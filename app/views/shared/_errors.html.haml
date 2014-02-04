@@ -1,0 +1,9 @@
+- if @errors.any?
+	.callout.callout-danger
+		%h4 Corrige los errores para continuar
+		%p 
+			%ul
+				- @errors.each_key do |key|
+					%li
+						%strong #{key}:
+						%span #{@errors[key]}
