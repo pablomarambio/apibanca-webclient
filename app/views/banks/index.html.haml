@@ -34,7 +34,9 @@
 					%td= b.name
 					%td= b.user
 					%td= b.account
-					%td= link_to "Eliminar", banks_path(b), method: :delete, class: "btn btn-danger btn-xs"
+					%td
+						= link_to "Ver", bank_path(id: b.id), class: "btn btn-primary btn-xs"
+						= link_to "Eliminar", bank_path(id: b.id), method: :delete, class: "btn btn-danger btn-xs"
 
 
 - content_for :script do

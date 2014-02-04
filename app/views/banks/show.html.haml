@@ -1,0 +1,54 @@
+.row
+	.col-md-12
+		.callout.callout-info
+			%h4 Banco
+			%p 
+				Resultado de la orden de trabajo
+				%code #{@bank.combination_short}
+.row
+	.col-md-12
+		.pretty-box.bank
+			%form.form-horizontal{ role: "form" }
+				.form-group
+					%label.col-sm-4.control-label Bank ID
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.combination, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Estado
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.status, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Nombre del banco
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.name, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Usuario
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.user, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Cuenta
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.account, disabled: "disabled" }
+				.form-group
+					.col-sm-offset-4.col-sm-8
+						%a.btn.btn-info{href: bank_deposits_path(bank_id: @bank.id)}
+							Ver depósitos
+							%span.glyphicon.glyphicon-chevron-right
+
+.callout.callout-info
+	%h4 Rutinas
+	%p 
+		Rutinas asociadas a este banco
+		%code #{@bank.name}
+.row
+	.col-md-12
+		.pretty-box.job-table
+			%table.table.table.table-striped
+				%tr
+					%th ID
+					%th Nombre
+					%th Frecuencia
+					%th Objetivo
+
+- content_for :script do
+	:plain
