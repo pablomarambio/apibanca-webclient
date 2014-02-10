@@ -43,7 +43,7 @@
               %ul.dropdown-menu
                 - if user_signed_in?
                   %li
-                    = link_to "Mi perfil", "#"
+                    = link_to "Llaves de acceso", users_setup_path
                   %li.divider
                   %li
                     =link_to "Salir", destroy_user_session_path, method: :delete

@@ -39,6 +39,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			end
 		end
 		if current_user.api_key.nil?
+			flash[:info] = "Para continuar, debes ingresar la llave de acceso a la API que obtuviste al crear tu cuenta en API-Banca."
 			redirect_to users_setup_form_path
 		else
 			redirect_to root_path

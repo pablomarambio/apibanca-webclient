@@ -7,7 +7,7 @@ ApibancaWebclient::Application.routes.draw do
 		get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
 	end
 	namespace :users do
-		get 'setup_form', to: "api_setup#setup_form"
+		get 'setup_form', to: "api_setup#setup_form", as: "setup"
 		post 'setup_api_access', to: "api_setup#setup_api_access", as: "setup_api_access"
 	end
 	resources :banks do
