@@ -1,6 +1,6 @@
 class BanksController < WebclientController
 	def index
-		@banks = Apibanca::Bank.index @client
+		@banks = Apibanca::Bank.index @client, false
 	end
 
 	def show

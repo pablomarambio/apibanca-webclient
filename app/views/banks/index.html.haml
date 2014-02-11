@@ -16,11 +16,13 @@
 				%th Banco
 				%th Usuario
 				%th Cuenta
+				%th Depósitos
+				%th Rutinas
 				%th Acciones
 			- @banks.each do |b|
 				%tr
 					%td
-						= link_to b.id, banks_path(id: b.id)
+						= link_to b.id, bank_path(id: b.id)
 					%td
 						- case b.status
 							- when "idle", "working"
@@ -30,10 +32,12 @@
 							- when "success"
 								%span.glyphicon.glyphicon-ok{ title: b.status }
 						= b.status
-					%td= b.keys.join(", ")
+					%td= b.created_at_datetime.strftime "%Y-%m-%d %H:%M"
 					%td= b.name
 					%td= b.user
 					%td= b.account
+					%td= b.deposit_count
+					%td= b.routines.length
 					%td
 						= link_to "Ver", bank_path(id: b.id), class: "btn btn-primary btn-xs"
 						= link_to "Eliminar", bank_path(id: b.id), method: :delete, class: "btn btn-danger btn-xs"

@@ -21,7 +21,10 @@
 				.form-group
 					.col-sm-offset-2.col-sm-10
 						%button.btn.btn-info{type: "submit"}
-							Conectar con la API
+							- if current_user.api_key
+								Actualizar
+							- else
+								Conectar con la API
 							%span.glyphicon.glyphicon-chevron-right
 	.col-md-6
 		.callout.callout-info
