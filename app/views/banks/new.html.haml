@@ -1,0 +1,32 @@
+
+.row
+	.col-md-12
+		%div{ class: "pretty-box bank-form"}
+			= form_for @bank, as: :bank, url: {controller: :banks}, html: { role: "form", class: "form-horizontal" } do |f|
+				.form-group{class: (@bank.errors.has_key?(:name) ? "has-error" : "")}
+					%label.col-sm-3.control-label{for: :name} Banco
+					.col-sm-9
+						= f.select :name, options_for_select(@available_bank_names.map { |b| [b[:description], b[:name]] }), {}, class: "form-control"
+				.form-group{class: (@bank.errors.has_key?(:user) ? "has-error" : "")}
+					%label.col-sm-3.control-label{for: :user} Usuario
+					.col-sm-9
+						= f.text_field :user, placeholder: "14569484-1", class: "form-control"
+						%span#help-bank-user.help-block Usuario para ingresar al banco. Generalmente es el RUT.
+				.form-group{class: (@bank.errors.has_key?(:account) ? "has-error" : "")}
+					%label.col-sm-3.control-label{for: :account} Cuenta
+					.col-sm-9
+						= f.text_field :account, class: "form-control"
+				.form-group{class: (@bank.errors.has_key?(:pass) ? "has-error" : "")}
+					%label.col-sm-3.control-label{for: :pass} Clave
+					.col-sm-9
+						= f.text_field :pass, placeholder: "HoLa.123", class: "form-control"
+						%span.help-block El sistema hará sólo un intento de ingresar al banco. De todas formas, cerciórate de ingresar bien la clave, cuidando de distinguir entre mayúsculas y minúsculas.
+				%div.alert.alert-warning
+					%span.glyphicon.glyphicon-warning-sign
+					%strong Importante:
+					El proceso de inscripción toma aproximadamente 5 minutos.
+				.form-group
+					.col-sm-offset-3.col-sm-9
+						%button.btn.btn-info{type: "submit"}
+							Crear banco
+							%span.glyphicon.glyphicon-chevron-right
