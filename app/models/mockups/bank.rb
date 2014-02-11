@@ -1,8 +1,5 @@
 module Mockups
-	class Bank
-		include ActiveModel::Validations
-		include ActiveModel::Conversion
-		extend ActiveModel::Naming
+	class Bank < Base
 
 		attr_accessor :name, :user, :account, :pass
 
@@ -11,18 +8,15 @@ module Mockups
 		validates :account, presence: true
 		validates :pass, presence: true
 
-		def initialize(attributes = {})
-			attributes.each do |name, value|
-				send("#{name}=", value)
-			end
-		end
-
 		def create_bank! client
-			raise "Corrige los errores" unless valid?
+			raise ActiveModel::StrictValidationFailed, "Corrige los errores antes de continuar" unless valid?
 			Apibanca::Bank.create client, to_params
+		rescue Apibanca::Client::InvalidOperationError
+			copy_remote_errors $!.remote_errors
+			raise
 		end
 
-		private
+		protected
 		def to_params
 			Apibanca::Bank::BankCreationParams.new({
 				name: name,

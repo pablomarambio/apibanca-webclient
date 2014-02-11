@@ -46,9 +46,17 @@
 			%table.table.table.table-striped
 				%tr
 					%th ID
-					%th Nombre
+					%th Tipo
 					%th Frecuencia
 					%th Objetivo
+					%th Tareas agendadas
+				- @bank.routines.each do |r|
+					%tr
+						%td=r.id
+						%td=r.nombre
+						%td=r.frequency
+						%td=r.target
+						%td=r.task_count
 
 - content_for :script do
 	:plain

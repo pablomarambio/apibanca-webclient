@@ -11,17 +11,23 @@ class BanksController < WebclientController
 
 	def create
 		@bank = Mockups::Bank.new(bank_params)
-		@bank.create_bank!
+		@nb = @bank.create_bank! @client
 		flash[:notice] = "Banco creado!"
 		redirect_to bank_path(@nb.id)
-	rescue Apibanca::Client::InvalidOperationError
+	rescue Apibanca::Client::InvalidOperationError, ActiveModel::StrictValidationFailed
 		flash[:error] = $!.message
 		render "new"
-	ensure
 	end
 
 	def show
-		@bank = Apibanca::Bank.load @client, params[:id]
+		@bank = Apibanca::Bank.load @client, params[:id], false
+	end
+
+	def destroy
+		@bank = Apibanca::Bank.load @client, params[:id], false
+		@bank.delete
+		flash[:info] = "Banco eliminado."
+		redirect_to action: :index
 	end
 
 	private

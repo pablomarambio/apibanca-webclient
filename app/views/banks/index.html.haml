@@ -42,8 +42,8 @@
 					%td= b.deposit_count
 					%td= b.routines.length
 					%td
-						= link_to "Ver", bank_path(id: b.id), class: "btn btn-primary btn-xs"
-						= link_to "Eliminar", bank_path(id: b.id), method: :delete, class: "btn btn-danger btn-xs"
+						= link_to "Ver", bank_path(id: b.id), method: :post, class: "btn btn-primary btn-xs"
+						= link_to "Eliminar", {action: :destroy, id: b.id}, method: :delete, class: "btn btn-danger btn-xs"
 
 
 - content_for :script do
