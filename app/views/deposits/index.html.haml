@@ -15,10 +15,10 @@
 				= hidden_field_tag :psd_origin_user_rut, params[:psd_origin_user_rut]
 			.form-group
 				%label.sr-only{for: :psd_type} Tipo
-				/= select_tag :psd_type, options_for_select(@deposit_types, params[:psd_type]), class: "form-control"
+				= select_tag :psd_type, options_for_select(@deposit_types, params[:psd_type]), class: "form-control"
 			.form-group
 				%label.sr-only{for: :psd_type} Banco
-				/= select_tag :psd_origin_bank, options_for_select(@bank_names, params[:psd_origin_bank]), class: "form-control"
+				= select_tag :psd_origin_bank, options_for_select(@bank_types, params[:psd_origin_bank]), class: "form-control"
 			%button.btn.btn-info{type: "submit"}
 				%span.glyphicon.glyphicon-search
 				Buscar

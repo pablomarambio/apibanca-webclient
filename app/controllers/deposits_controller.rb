@@ -19,5 +19,7 @@ class DepositsController < WebclientController
 		end
 		@bank = Apibanca::Bank.load @client, params[:bank_id], false
 		@deposits = @bank.search_deposits(search_params)
+		@deposit_types = [nil, Apibanca::Deposit::TYPES].flatten
+		@bank_types = [nil, Apibanca::Bank::TYPES].flatten
 	end
 end
