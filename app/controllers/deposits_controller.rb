@@ -1,18 +1,20 @@
+require "rut"
 class DepositsController < WebclientController
 	def index
+		search_params = params[:page] || {}
 		unless params[:has_history].blank?
-			with_history = !params[:has_history].nil?
-			@deposits = @deposits.where(has_history: with_history)
+			search_params.merge(has_history: true)
 		end
 		unless params[:psd_type].blank?
-			@deposits = @deposits.where(psd_type: params[:psd_type])
+			search_params.merge(psd_type: params[:psd_type])
 		end
 		unless params[:psd_origin_bank].blank?
-			@deposits = @deposits.where(psd_origin_bank: params[:psd_origin_bank])
+			search_params.merge(psd_origin_bank: params[:psd_origin_bank])
 		end
 		unless params[:psd_origin_user_rut].blank?
-			@deposits = @deposits.where(psd_origin_user_rut: params[:psd_origin_user_rut])
+			search_params.merge(psd_origin_user_rut: params[:psd_origin_user_rut])
 		end
-		render json: PaginatedBatch.new(@deposits)
+		@bank = Apibanca::Bank.load @client, params[:bank_id]
+		@deposits = @bank.search_deposits(search_params)
 	end
 end

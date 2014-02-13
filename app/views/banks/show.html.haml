@@ -34,6 +34,9 @@
 						%a.btn.btn-info{href: bank_deposits_path(bank_id: @bank.id)}
 							Ver depósitos
 							%span.glyphicon.glyphicon-chevron-right
+						%a.btn.btn-danger{href: bank_path(id: @bank.id), :"data-method" => :delete}
+							Eliminar
+							%span.glyphicon.glyphicon-trash
 
 .callout.callout-info
 	%h4 Rutinas

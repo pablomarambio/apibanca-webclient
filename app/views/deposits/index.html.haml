@@ -5,8 +5,8 @@
 			
 .row
 	.col-md-12
-		%form.form-inline{action: deposits_path(@bank.id), method: :get, role: :form}
-			%a.btn.btn-secondary{href: get_bank_path(id: @bank.id) }
+		%form.form-inline{action: bank_deposits_path(@bank.id), method: :get, role: :form}
+			%a.btn.btn-secondary{href: bank_path(id: @bank.id) }
 				%span.glyphicon.glyphicon-chevron-left
 				Volver a banco
 			#rut-group.form-group
@@ -15,10 +15,10 @@
 				= hidden_field_tag :psd_origin_user_rut, params[:psd_origin_user_rut]
 			.form-group
 				%label.sr-only{for: :psd_type} Tipo
-				= select_tag :psd_type, options_for_select(@deposit_types, params[:psd_type]), class: "form-control"
+				/= select_tag :psd_type, options_for_select(@deposit_types, params[:psd_type]), class: "form-control"
 			.form-group
 				%label.sr-only{for: :psd_type} Banco
-				= select_tag :psd_origin_bank, options_for_select(@bank_names, params[:psd_origin_bank]), class: "form-control"
+				/= select_tag :psd_origin_bank, options_for_select(@bank_names, params[:psd_origin_bank]), class: "form-control"
 			%button.btn.btn-info{type: "submit"}
 				%span.glyphicon.glyphicon-search
 				Buscar
@@ -56,13 +56,12 @@
 				%th
 					%abbr{ title: "Cartola: Banco emisor (sólo transferencias)" } Banco emisor
 			- @deposits.each do |d|
-				- job = @jobs.select { |j| j.id == d.job_id }.first
 				%tr
-					%td= link_to d.id, get_deposit_path(bank_id: d.bank_id, id: d.id)
-					%td= job.updated_at.advance(hours: -3).strftime "%m-%d"
-					%td= job.updated_at.advance(hours: -3).strftime "%H:%M"
-					%td= link_to d.job.id, job_path(d.job)
-					%td= d.psd_date.strftime "%m-%d"
+					%td= link_to d.id, bank_deposit_path(bank_id: d.bank_id, id: d.id)
+					%td
+					%td
+					%td
+					%td= d.psd_date
 					%td
 						- if d.has_history
 							%span.glyphicon.glyphicon-ok
@@ -72,12 +71,11 @@
 					%td
 						%abbr{ title: d.psd_comment }
 							= d.raw_comment[0..10]
-					%td= Rutcl::Rut.format_rut_without_dv d.psd_origin_user_rut unless d.psd_origin_user_rut.nil?
+					%td= ::Rutcl::Rut.format_rut_without_dv d.psd_origin_user_rut unless d.psd_origin_user_rut.nil?
 					%td= d.raw_origin_user_name
 					%td= d.psd_origin_account
 					%td= d.psd_origin_bank
 
-		= will_paginate @deposits
 
 - content_for :script do
 	:plain
