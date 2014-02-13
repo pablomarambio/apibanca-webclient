@@ -14,7 +14,7 @@ class DepositsController < WebclientController
 		unless params[:psd_origin_user_rut].blank?
 			search_params.merge(psd_origin_user_rut: params[:psd_origin_user_rut])
 		end
-		@bank = Apibanca::Bank.load @client, params[:bank_id]
+		@bank = Apibanca::Bank.load @client, params[:bank_id], false
 		@deposits = @bank.search_deposits(search_params)
 	end
 end

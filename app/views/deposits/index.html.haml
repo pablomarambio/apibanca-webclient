@@ -58,10 +58,10 @@
 			- @deposits.each do |d|
 				%tr
 					%td= link_to d.id, bank_deposit_path(bank_id: d.bank_id, id: d.id)
-					%td
-					%td
-					%td
-					%td= d.psd_date
+					%td= d.computed_at_datetime.strftime "%m-%d"
+					%td= d.computed_at_datetime.strftime "%H:%M"
+					%td= d.job_id
+					%td= d.psd_date_datetime.strftime "%Y-%m%-%d"
 					%td
 						- if d.has_history
 							%span.glyphicon.glyphicon-ok
