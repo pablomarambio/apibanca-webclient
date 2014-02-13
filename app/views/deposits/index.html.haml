@@ -23,6 +23,7 @@
 				%span.glyphicon.glyphicon-search
 				Buscar
 		%p &nbsp;
+		= paginate(@deposits)
 		%table.table.table.table-striped
 			%tr
 				%th ID
@@ -75,6 +76,8 @@
 					%td= d.raw_origin_user_name
 					%td= d.psd_origin_account
 					%td= d.psd_origin_bank
+
+		= paginate(@deposits)
 
 
 - content_for :script do
