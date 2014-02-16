@@ -39,11 +39,17 @@ module PaginatedBatchHelper
 	</li>
 		EOMAX
 
+		deposito_inicial = (batch.page-1)*20+1
+		page_info = <<-EOPINFO
+	Mostrando #{deposito_inicial}-#{deposito_inicial-1+batch.count} de #{batch.length}
+		EOPINFO
+
 
 		res = <<-EOCONT
 <ul class="pagination">
 #{page_links}
 </ul>
+<span class="pull-right page-info text-muted">#{page_info}</span>
 		EOCONT
 		res.html_safe
 	end
