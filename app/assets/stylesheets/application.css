@@ -19,3 +19,15 @@
 .pretty-box.login:after {
 	content: "Login";
 }
+
+.pretty-box.deposit-basic:after {
+	content: "Depósito: información básica";
+}
+
+.pretty-box.deposit-raw:after {
+	content: "Información original inalterada";
+}
+
+.pretty-box.deposit-psd:after {
+	content: "Información interpretada o inferida";
+}

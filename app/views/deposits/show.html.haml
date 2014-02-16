@@ -1,0 +1,104 @@
+.row
+	.col-md-12
+		.callout.callout-info
+			%h4 Depósito
+			%p 
+				ID: #{@deposit.id}
+.row
+	.col-md-12
+		.pretty-box.deposit-basic
+			%form.form-horizontal{ role: "form" }
+				.form-group
+					%label.col-sm-4.control-label Bank
+					.col-sm-8
+						%input.form-control{ type: "text", value: @bank.combination_short, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Target
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.target, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Tipo
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_type, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Fecha proceso
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.computed_at_datetime.strftime("%Y-%m-%d %H:%M"), disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Fecha cartola
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_date_datetime.strftime("%Y-%m-%d"), disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Fecha transferencia
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_transfer_date_datetime ? @deposit.psd_transfer_date_datetime.strftime("%Y-%m-%d") : "", disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Historia
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.has_history ? "Tiene versiones anteriores" : "Única versión", disabled: "disabled" }
+
+.row
+	.col-md-12
+		.pretty-box.deposit-raw
+			%form.form-horizontal{ role: "form" }
+				.form-group
+					%label.col-sm-4.control-label Código
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_code, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Glosa
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_comment, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Monto
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_amount, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Banco de origen
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_origin_bank, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Cuenta de origen
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_origin_account, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label RUT de emisor
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_origin_user_rut, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Nombre de emisor
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_origin_user_name, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Cuenta de destino
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.raw_destination_account, disabled: "disabled" }
+
+.row
+	.col-md-12
+		.pretty-box.deposit-psd
+			%form.form-horizontal{ role: "form" }
+				.form-group
+					%label.col-sm-4.control-label Glosa
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_comment, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Monto
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_amount, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Banco de origen
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_origin_bank, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label Cuenta de origen
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_origin_account, disabled: "disabled" }
+				.form-group
+					%label.col-sm-4.control-label RUT de emisor
+					.col-sm-8
+						%input.form-control{ type: "text", value: @deposit.psd_origin_user_rut, disabled: "disabled" }
+
+
+- content_for :script do
+	:plain

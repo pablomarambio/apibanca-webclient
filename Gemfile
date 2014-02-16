@@ -18,7 +18,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'apibanca-client', '~> 0.0.8', path: "/Users/pablo/apibanca-client"
+gem 'apibanca-client', '~> 0.0.11', path: "/Users/pablo/apibanca-client"
 gem "thin"
 gem "minitest-rails"
 gem "rutcl"

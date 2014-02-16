@@ -1,0 +1,31 @@
+.row
+	.col-md-12
+		.callout.callout-info
+			%h4 Cartola instantánea
+			%p Escoge la cartola que quieres revisar
+
+.row
+	.col-md-12
+		%table.table
+			%tr
+				%th Banco
+				%th Depósitos
+				%th Acciones
+			- @banks.each do |b|
+				%tr
+					%td
+						- if b.status != "ready"
+							%span.text-danger 
+								= b.combination_short
+								(Error 
+								%span.glyphicon.glyphicon-warning-sign
+								)
+						- else
+							%span.text-info= b.combination_short
+					%td= human_dep_count(b.deposit_count)
+					%td
+						- if b.status == "ready"
+							%a.btn.btn-primary.btn-xs{href: bank_deposits_path(bank_id: b.id)}
+								Ver Cartola
+								%span.glyphicon.glyphicon-chevron-right
+						= link_to "Editar", bank_path(id: b.id), class: "btn btn-secondary btn-xs"

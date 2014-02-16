@@ -22,4 +22,19 @@ class DepositsController < WebclientController
 		@deposit_types = [nil, Apibanca::Deposit::TYPES].flatten
 		@bank_types = [nil, Apibanca::Bank::TYPES].flatten
 	end
+
+	def show
+		@bank = Apibanca::Bank.load @client, params[:bank_id], false
+		@deposit = @bank.get_deposit params[:id]
+	end
+
+	def router
+		@banks = Apibanca::Bank.index @client
+		if @banks.empty?
+			flash[:info] = "Debe inscribir una cuenta primero"
+			redirect_to new_bank_path and return
+		elsif @banks.length == 1
+			redirect_to bank_deposits_path(bank_id: @banks.first.id) and return
+		end
+	end
 end

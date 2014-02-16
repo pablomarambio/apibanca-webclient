@@ -13,6 +13,8 @@ ApibancaWebclient::Application.routes.draw do
 	resources :banks do
 		resources :deposits
 	end
+
+	get "/deposits", to: "deposits#router", as: "deposits"
 	
 	root to: "application#root"
 end
